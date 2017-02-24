@@ -1,0 +1,46 @@
+<ion-view view-title="Calendario de Programación" ng-init="getListaActividades();">
+
+  <ion-nav-buttons side="right">
+        <md-button class="md-icon-button ion-nav-button-left" ng-click="goToSetting()"
+                   aria-label="Setting">
+            <i class="ion-home" style="font-size: 25px;"></i>
+        </md-button>
+  </ion-nav-buttons>    
+  <ion-content>
+  <md-toolbar class="bar-subheader md-tall md-primary toolbar-expense styleToolbarDsige">
+        <div>
+
+            <h1>{{nombresUsuario}}</h1>
+        </div>
+ 
+  </md-toolbar>  
+  </ion-content>
+
+  <ion-content class="padding" style="margin-top: 60px;">  
+     <label class="item item-input">
+  <span class="input-label" style="font-size:11px;">Desde</span>
+  <input style="font-size:11px;" id="txtfechainiL"  type="date">
+</label><label class="item item-input">
+  <span class="input-label" style="font-size:11px;">Hasta</span>
+  <input style="font-size:11px;" id="txtfechafinL" type="date">
+</label>
+<a class="item item-icon-left positive"  ng-click="getListaActividades()">
+    <i class="icon ion-refresh"></i>
+    Presione para actualizar. 
+  </a>  
+  <div ng-show="showLoadActividad" style="text-align:center; padding-top: 20px;">
+    <ion-spinner icon="android" class="loadingok"></ion-spinner>
+  </div>
+    <div  ng-repeat="item in listActividades" ng-class="getClass(item.st_acti,item.status);"  ng-click="showOptions(item,$index)">
+      <div class="item item-icon-right ">
+       <i class="icon ion-ios-arrow-right"></i> 
+        <h2>Actividad {{item.co_acti}}</h2>
+        <p style="color: #567ba2  !important">Hora : {{item.ho_ingr_refe}} | Duración {{item.nu_minu_refe}} min</p>
+        <p>{{item.no_desc_loca}}</p>
+        <p>{{item.no_dire_loca}}</p>
+         <span class="badge">{{item.fe_acti_inic}}</span>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,41 @@
+<ion-view view-title="Bienvenido al Consumo de Datos" hide-nav-bar="true">
+    <ion-content>
+        <div id="paginaPrincipal">
+            <div class="item item-body">
+                <br><br>
+                <center>
+                    <img class="avatark" src="img/icon.png" >
+                    <br><br>
+                    <a class="button button-positive button-clear button-block button-small" style="font-size:12px !important;font-weight: 600;color: rgba(56, 126, 245, 0.91);font: menu; width:80%;       white-space: normal;    text-transform: inherit;">
+                        Ingresar usuario y contraseña para ingresar al sistema.
+                    </a>                  
+                </center>
+                <div>
+                    <div class="list contentStyleLogin" style="">
+                        <label class="item item-input">
+                            <i class="icon ion-person placeholder-icon"></i>
+                            <input type="text" ng-model="params.usu" placeholder="Usuario">
+                        </label>
+                        <br>
+                        <label class="item item-input ">
+                            <i class="icon ion-locked placeholder-icon"></i>
+                            <input type="password" ng-model="params.pass" placeholder="Contraseña">
+                        </label>
+                        
+                        <br>
+                        <div ng-show="showLoader" style="text-align:center; ">
+                            <ion-spinner icon="android" class="loadingok"></ion-spinner>
+                        </div>
+                        <br>
+                        <button class="button button-block " ng-click="iniciarSesion()">Iniciar Sesión</button>
+
+                    <a class="button button-positive button-clear button-block button-small" style="font-size:12px !important;font-weight: 600;color: rgba(56, 126, 245, 0.91);font: menu; width:80%;       white-space: normal;    text-transform: inherit;">
+                        v app. 01
+                    </a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

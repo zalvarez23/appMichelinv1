@@ -1,0 +1,296 @@
+<ion-view view-title="Tareas de Programación" ng-init="getAllItemsActividades()">
+
+  <ion-nav-buttons side="right">
+        <md-button class="md-icon-button ion-nav-button-left" ng-click="goToSetting()"
+                   aria-label="Setting">
+            <i class="ion-home" style="font-size: 25px;"></i>
+        </md-button>
+  </ion-nav-buttons>    
+  <ion-content>
+  <md-toolbar class="bar-subheader md-tall md-primary toolbar-expense styleToolbarDsigeP">
+        <div>
+            <h1>{{direccionItem.oficina}}</h1>
+            <p>{{direccionItem.direccion}}</p>
+        </div>
+ 
+  </md-toolbar>  
+  </ion-content>
+
+  <ion-content class="padding" style="margin-top: 65px;">
+       <div class="padding" ng-show="registerTareas">
+       <button class="button button-block buttonKevin" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;" ng-click="ConfirmFinalizarAct();">Finalizar Actividad</button>
+    </div>
+    <div class="padding">
+       <div ng-show="loadFinalizarAct" style="text-align:center; padding-top: 20px;margin-bottom: 20px;">
+    <ion-spinner icon="android" class="loadingok"></ion-spinner>
+   </div>
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+
+      <h2 class="textStyle1">Tareas - </h2>     
+       <p class="textStyle2"> {{textInicioActividad}}</p>
+    </div>
+    <div class="list card cardKevin" ng-repeat="item in listTareas" ng-click="showConditions(item)">
+      <div class="item item-icon-right ">
+       <i class="icon ion-ios-arrow-right"></i>  
+        <h2>TAREA #0{{$index +1}}</h2>
+        <p>{{item.de_tare}}</p>
+        <!-- <span class="badge">{{item.fecha}}</span> -->
+      </div>
+    </div>
+<ion-slide-box on-slide-changed="slideHasChanged($index)">
+  <ion-slide>
+    <div class="box blue">
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Herramientas -</h2>     
+
+    </div>
+    <div class="padding" >
+     <div class="list card cardKevin colorCard1" style="margin-top:-5px; margin-bottom:15px;" ng-repeat="item in listHerramientas">
+      <div class="item item-icon-right " ng-click="showComentHerramienta(item);">
+        <h2>#0{{$index +1}} : {{item.no_herr}}</h2>
+        <p>Cantidad : {{item.nu_cant_entr}}</p>
+        <p>Estado : {{item.st_entr_herr}}</p>
+        <p>Entrega : {{item.co_usua_entr}}</p>
+        <p>Recepción : {{item.co_usua_rece}}</p>
+        
+        <span class="badge" style="letter-spacing: normal;">{{item.fe_entr_herr}}</span>
+      </div>
+    </div>
+     
+    </div>  
+
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="box yellow">
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Materiales -</h2>
+    </div>
+        <div class="padding" >
+     <div class="list card cardKevin colorCard1" style="margin-top:-5px; margin-bottom:15px;" ng-repeat="item in listMateriales">
+      <div class="item item-icon-right " ng-click="showComentMaterial(item);">
+        <h2>#0{{$index +1}} : {{item.no_mate}} </h2>        
+        <p>Cantidad : {{item.nu_cant_entr}} {{item.co_unid_medi}}</p>
+        <p>Entrega : {{item.co_usua_entr}}</p>
+        <p>Recepción : {{item.co_usua_reci}}</p>
+        <p>Devolución : {{item.nu_cant_usud}} {{item.co_unid_medi}}</p>
+        <span class="badge" style="letter-spacing: normal;">{{item.fe_usua_entr}}</span>
+      </div>
+    </div>
+     
+    </div>
+
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="box pink">
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Equipos -</h2>
+    </div>
+        <div class="padding" >
+     <div class="list card cardKevin colorCard1" style="margin-top:-5px; margin-bottom:15px;" ng-repeat="item in listEquipos">
+      <div class="item item-icon-right " ng-click="showComentEquipo(item)">
+        <h2>#0{{$index +1}} : {{item.no_herr}}</h2>
+        <p>Series : {{item.nu_seri}}</p>
+        <p>Cantidad : {{item.nu_cant}} UNI</p>
+        <p>Observación : {{item.de_obse_entr}}</p>
+        <p>Entrega : {{item.co_usua_entr}}</p>
+        <p>Recepción : {{item.co_usua_rece}}</p>
+        <p>Devolución : {{item.nu_cant_usad}} UNI</p>
+        <span class="badge" style="letter-spacing: normal;">{{item.fe_entr_equi}}</span>
+      </div>
+      </div>     
+    </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Informe -</h2>
+    </div>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label textStyle2">Informe Final -</span>
+        <textarea type="text" placeholder=".." style="    height: 100px;" ng-model="dataInforme.de_repo"></textarea>
+    </label>
+     <div class="padding">
+       <div ng-show="loadInforme" style="text-align:center; padding-top: 20px;margin-bottom: 20px;">
+    <ion-spinner icon="android" class="loadingok"></ion-spinner>
+   </div>
+       <button class="button button-block buttonKevin" ng-show="registerTareas" ng-click="saveInformeActividad()" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;">Guardar Reporte</button>
+    </div>
+      <ion-item class="item-remove-animate item-avatar item-icon-right cardKevin" ng-repeat="item in listInforme" type="item-text-wrap" ng-click="getInforme(item)">
+        <h2 class="textStyle2">INFORME #{{$index + 1}}</h2>
+        <p>Fecha : {{item.fe_repo_acti}}</p>
+        
+      </ion-item>
+  </ion-slide>
+  <ion-slide>
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Visto Bueno -</h2>
+    </div>
+
+    <div class="list" >
+
+      <label class="item item-input item-stacked-label" ng-show="registerTareas">
+        <span class="input-label textStyle2">Nombre de Cliente</span>
+        <textarea type="text" class="textStyle2" placeholder=".." ng-model="paramsVistoBueno.nom_clie"></textarea>
+      </label>
+      <label class="item item-input item-stacked-label" ng-show="registerTareas">
+        <span class="input-label textStyle2">Nro de Documento</span>
+        <input type="tel" class="textStyle2" placeholder=".." ng-model="paramsVistoBueno.nro_docu">
+      </label>
+      <label class="item item-input item-stacked-label" ng-show="registerTareas">
+        <span class="input-label textStyle2">Cargo</span>
+        <input type="text" class="textStyle2" placeholder=".." ng-model="paramsVistoBueno.nom_cargo">
+      </label>
+   <div ng-show="loadSaveFirma" style="text-align:center; padding-top: 20px;">
+    <ion-spinner icon="android" class="loadingok"></ion-spinner>
+   </div>
+     <div class="padding" ng-show="registerTareas">
+       <button class="button button-block buttonKevin" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;" ng-show="registerTareas" ng-click="saveVistoBuenoActividad();">Tomar Foto y Guardar</button>
+    </div>
+      <ion-item class="item-remove-animate item-avatar item-icon-right cardKevin" ng-repeat="item in listVistoBueno" type="item-text-wrap" ng-click="showImagesVisto($index)">
+        <img ng-src="{{item.src}}">
+        <h2 class="textStyle2">{{item.noFoto}}</h2>
+        <p>{{item.nombre}}</p>
+        <p>{{item.cargo}}</p>
+      </ion-item>
+    </div>
+  </ion-slide>
+ <ion-slide>
+    <div class="box blue">
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">Tecnicos -</h2>     
+
+    </div>
+    <div class="padding" >
+     <div class="list card cardKevin colorCard1" style="margin-top:-5px; margin-bottom:15px;" ng-repeat="item in listTecnicosAct">
+      <div class="item item-icon-right "fnh>
+        <h2>TECNICO #0{{$index +1}}</h2>
+        <p>Nombres : {{item.no_tecn}} {{item.no_apel_pate}}</p>
+        <p>Cargo : {{item.ti_func}}</p>
+      </div>
+    </div>
+     
+    </div>  
+
+    </div>
+  </ion-slide>
+</ion-slide-box>
+  </ion-content>
+
+  <!-- MODAL -->
+ <!--<ion-modal-view on-swipe-down="closeModal()">-->
+  <script id="my-modal.html" type="text/ng-template">
+
+  <ion-modal-view>
+    <ion-header-bar class="bar-dsige" ng-click="closeModal()">
+       <i class="ion-ios-arrow-left" style="font-size: 30px;margin-left: 10px;" ng-click="closeModal()"></i>       
+      <h1 class="title">{{titleModal}}</h1>
+
+    </ion-header-bar>
+    <ion-content>
+
+    <div class="bar bar-header item-input-inset" style="margin-top: 10px !important;">
+      <h2 class="textStyle1">{{titleBodyModal}}</h2>
+    </div>
+    <div class="list" ng-show="showComentarios"  >
+
+      <label class="item item-input item-stacked-label" ng-show="registerTareas">
+        <span class="input-label textStyle2">Comentario -</span>
+        <textarea type="text textStyle2" placeholder=".." ng-model="parametrosComent.comentario"></textarea>
+      </label>
+      <label class="item item-input item-stacked-label" ng-show="registerTareas" ng-show="showClave">
+        <span class="input-label textStyle2">Usuario - </span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametrosComent.usuario">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas" ng-show="showClave">
+        <span class="input-label textStyle2">Clave -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametrosComent.clave">
+      </label>
+   <div ng-show="loadSaveComent" style="text-align:center; padding-top: 20px;">
+    <ion-spinner icon="android" class="loadingok"></ion-spinner>
+   </div>
+     <div class="padding" ng-show="registerTareas">
+       <button class="button button-block buttonKevin" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;" ng-click="saveComent();">Guardar Reporte</button>
+    </div>
+    <ion-item class="item-remove-animate item-avatar item-icon-right cardKevin" ng-repeat="item in listComents" type="item-text-wrap"  ng-click="updateComent(item,$index)">
+        <h2 class="textStyle2">{{item.comentario}}</h2>
+        <p>Usuario : {{item.no_usu}}</p>
+        <p>Clave : {{item.no_clav}}</p>
+      </ion-item>
+    </div>
+
+    <ion-list ng-show="showFotos" >
+     <div style="height: 230px;overflow-x: hidden;">
+
+     <label class="item item-input item-stacked-label"  ng-show="registerTareas">
+        <span class="input-label textStyle2">Ubicacion -</span>
+        <input type="text"  ng-model="parametersFoto.comentario" placeholder="..">
+     </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Marca del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.no_marc">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Nro Ip del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.nu_ip">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Nro de SubRed -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.ms_red">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Modelo del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.no_mode">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Puerta de Enlace del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.pu_enla">
+      </label>
+      <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Streaming Transmisión -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.st_tran">
+      </label>
+            <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Serie del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.nu_seri">
+      </label>
+        <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Streaming Grabación -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.st_grab">
+      </label>
+            <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Mac Adrress del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.no_mac">
+      </label>
+          <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Descripción del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.no_desc">
+      </label>
+          <label class="item item-input item-stacked-label"ng-show="registerTareas">
+        <span class="input-label textStyle2">Recomendación del equipo -</span>
+        <input type="text textStyle2" placeholder=".." ng-model="parametersFoto.no_reco">
+      </label>
+
+       </ion-list>
+           </div>
+     <div class="padding">
+       <button class="button button-block buttonKevin" ng-show="showSaveFoto" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;"ng-show="registerTareas" ng-click="savePhoto()">Tomar Foto</button>
+       <button class="button button-block buttonKevin" ng-show="showUpdateFoto" style="margin-top: -5px !important;
+    margin-bottom: -5px !important;"ng-show="registerTareas" ng-click="updateDataFoto()">Actualizar Datos</button>
+    </div>
+      <ion-item class="item-remove-animate item-avatar item-icon-right cardKevin" ng-repeat="item in listFotos" type="item-text-wrap" ng-click="showConditionsFoto($index,item)">
+        <img ng-src="{{item.src}}">
+        <h2 class="textStyle2">{{item.noFoto}}</h2>
+        <p>{{item.comentario}}</p>
+      </ion-item>
+  
+    </ion-content>
+  </ion-modal-view>
+</script>
+</ion-view>

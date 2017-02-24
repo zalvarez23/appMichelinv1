@@ -1,0 +1,29 @@
+<ion-view view-title="Calendario de Programación">
+
+  <ion-nav-buttons side="right">
+        <md-button class="md-icon-button ion-nav-button-left" ng-click="goToSetting()"
+                   aria-label="Setting">
+            <i class="ion-home" style="font-size: 25px;"></i>
+        </md-button>
+  </ion-nav-buttons>    
+  <ion-content>
+  <md-toolbar class="bar-subheader md-tall md-primary toolbar-expense styleToolbarDsige">
+        <div>
+            <h1>Michel Rojas</h1>
+        </div>
+ 
+  </md-toolbar>  
+  </ion-content>
+
+  <ion-content class="padding" style="margin-top: 70px;">
+    <div class="list card listKevin" ng-repeat="item in list">
+      <div class="item item-icon-right ">
+       <i class="icon ion-ios-arrow-right"></i>  
+        <h2>{{item.fecha}}s</h2>
+        <p>{{item.des}}</p>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
